@@ -29,7 +29,7 @@ $ignoreKBs = @('2267602x') #for example Security Intelligence-Update for Defende
 ####
 
 ### Update Defender Signature
-Update-MpSignature
+#Update-MpSignature
 
 $updHid = 0
 $updCri = 0
@@ -114,6 +114,11 @@ if($rebootPending -eq 1){
     $diffSinceLastUpdate = 0
 }
 
+$bootuptime = (Get-CimInstance -ClassName Win32_OperatingSystem).LastBootUpTime
+$CurrentDate = Get-Date
+$uptime = $CurrentDate - $bootuptime
+$uptimeDays = $uptime.days
+
  
 $prtgresult += @"
     <result>
@@ -161,6 +166,16 @@ $prtgresult += @"
         <showChart>1</showChart>
         <showTable>1</showTable>
     </result>
+	<result>
+		<channel>Uptime</channel>
+		<unit></unit>
+		<value>$uptimeDays</value>
+        <showChart>1</showChart>
+        <showTable>1</showTable>
+		<LimitMaxWarning>7</LimitMaxWarning>
+		<LimitMaxError>14</LimitMaxError>
+		<LimitMode>1</LimitMode>
+	</result>
     <text>Critical: $updCriText </text>
 </prtg>
 
