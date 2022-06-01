@@ -12,16 +12,19 @@
 [cmdletbinding()]
 param(
 	[Parameter(Position=1, Mandatory=$false)]
-		[switch]$DryRun = $false
+		[switch]$DryRun = $false,
+	[string] $probeServer,
+	[string] $sensorPort,
+	[string] $sensorKey
 )
 
 
 ####
 # CONFIG START
 ####
-$probeIP = "PROBE"  #include https or http
-$sensorPort = "PORT"
-$sensorKey ="KEY"
+$probeIP = "http://$probeServer"  #include https or http
+#$sensorPort = "PORT"
+#$sensorKey ="KEY"
 $ignoreKBs = @('2267602x') #for example Security Intelligence-Update for Defender KB226602
 
 ####
